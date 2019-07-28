@@ -1,5 +1,6 @@
-package com.thamirestissot.core.desafio;
+package com.thamirestissot.core.desafio.manipulateFiles;
 
+import com.thamirestissot.core.desafio.*;
 import com.thamirestissot.core.desafio.exceptions.InfoCodeNotRegisteredException;
 import com.thamirestissot.core.desafio.exceptions.NoHasPossibleReadFileConfigurationException;
 import com.thamirestissot.core.desafio.exceptions.DirectoryNotFoundException;
@@ -88,7 +89,7 @@ public class HandlerFile {
             readFile(INPATH + nameFile).stream().forEach(line -> {
                 objects.add(processLine(line));
             });
-            createReportFile(makeReport(objects),nameFile);
+            createReportFile(makeReport(objects),nameFile.replace(".dat", "")+".done.dat");
         } catch (InfoCodeNotRegisteredException e) {
             System.out.println(e.getFriendlyMessage());
         }

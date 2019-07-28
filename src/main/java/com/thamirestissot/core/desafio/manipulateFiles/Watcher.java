@@ -1,4 +1,4 @@
-package com.thamirestissot.core.desafio;
+package com.thamirestissot.core.desafio.manipulateFiles;
 
 import java.io.IOException;
 import java.nio.file.*;

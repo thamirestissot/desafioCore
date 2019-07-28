@@ -2,6 +2,8 @@ package com.thamirestissot.core.desafio;
 
 import com.thamirestissot.core.desafio.exceptions.DirectoryNotFoundException;
 import com.thamirestissot.core.desafio.exceptions.NoHasPossibleReadFileConfigurationException;
+import com.thamirestissot.core.desafio.manipulateFiles.HandlerFile;
+import com.thamirestissot.core.desafio.manipulateFiles.Watcher;
 
 import java.io.IOException;
 import java.util.List;
