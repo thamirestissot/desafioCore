@@ -2,33 +2,24 @@ package com.thamirestissot.core.desafio;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Handler;
 
 public class Watcher {
-    public void monitora(String pasta) throws IOException, InterruptedException {
-        WatchService watchService
-                = FileSystems.getDefault().newWatchService();
-
-        Path path = Paths.get(System.getProperty("user.home")+pasta);
-
+    public void watch() throws IOException, InterruptedException {
+        WatchService watchService = FileSystems.getDefault().newWatchService();
+        HandlerFile handlerFile = new HandlerFile();
+        Path path = Paths.get(handlerFile.getINPATH());
         path.register(
                 watchService,
-                StandardWatchEventKinds.ENTRY_CREATE/*,
-                StandardWatchEventKinds.ENTRY_DELETE,
-                StandardWatchEventKinds.ENTRY_MODIFY*/
+                StandardWatchEventKinds.ENTRY_CREATE
         );
         WatchKey watchKey;
         while ((watchKey = watchService.take()) != null) {
             for (WatchEvent<?> event : watchKey.pollEvents()) {
-                System.out.println(
-                        "Event kind:" + event.kind()
-                                + ". File affected: " + event.context() + ".");
-                  //  HandlerFile.readFile(System.getProperty("user.home")+pasta+"/"+event.context());
+                if (String.valueOf(event.context()).contains(".dat")) {
+                    handlerFile.processFile(String.valueOf(event.context()));
+                }
+                watchKey.reset();
             }
-            watchKey.reset();
-
         }
     }
 }

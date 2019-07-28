@@ -1,23 +1,27 @@
 package com.thamirestissot.core.desafio;
 
+import com.thamirestissot.core.desafio.exceptions.DirectoryNotFoundException;
+import com.thamirestissot.core.desafio.exceptions.NoHasPossibleReadFileConfigurationException;
+
 import java.io.IOException;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("inicio");
-        HandlerFile handlerFile=new HandlerFile();
         try {
-            handlerFile.readDirectory("/data/in");
+            HandlerFile handlerFile=new HandlerFile();
+            List<String> fileNames = handlerFile.readDirectory();
+            fileNames.stream().forEach(s -> handlerFile.processFile(s));
+        } catch (DirectoryNotFoundException | NoHasPossibleReadFileConfigurationException e) {
+            System.out.println(e.getFriendlyMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        /*Watcher watcher= new Watcher();
+        Watcher watcher= new Watcher();
         try {
-            watcher.monitora("/data/in");
+            watcher.watch();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-        }*/
-        System.out.println("fim");
+        }
     }
 }
