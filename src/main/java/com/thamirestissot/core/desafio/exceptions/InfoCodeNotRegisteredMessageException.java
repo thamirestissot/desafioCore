@@ -1,7 +1,7 @@
 package com.thamirestissot.core.desafio.exceptions;
 
-public class InfoCodeNotRegisteredException extends RuntimeException implements FriendlyException {
-    public InfoCodeNotRegisteredException() {
+public class InfoCodeNotRegisteredMessageException extends RuntimeException implements FriendlyMessageException {
+    public InfoCodeNotRegisteredMessageException() {
         super("Info code not registered.");
     }
 

@@ -8,7 +8,7 @@ public enum DataType {
         this.code = code;
     }
 
-    public int getCode(){
+    public int getCode() {
         return this.code;
     }
 }

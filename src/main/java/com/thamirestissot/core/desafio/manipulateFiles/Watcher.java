@@ -8,10 +8,7 @@ public class Watcher {
         WatchService watchService = FileSystems.getDefault().newWatchService();
         HandlerFile handlerFile = new HandlerFile();
         Path path = Paths.get(handlerFile.getINPATH());
-        path.register(
-                watchService,
-                StandardWatchEventKinds.ENTRY_CREATE
-        );
+        path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
         WatchKey watchKey;
         while ((watchKey = watchService.take()) != null) {
             for (WatchEvent<?> event : watchKey.pollEvents()) {

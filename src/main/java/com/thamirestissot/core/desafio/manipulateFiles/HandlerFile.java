@@ -1,9 +1,9 @@
 package com.thamirestissot.core.desafio.manipulateFiles;
 
 import com.thamirestissot.core.desafio.*;
-import com.thamirestissot.core.desafio.exceptions.InfoCodeNotRegisteredException;
-import com.thamirestissot.core.desafio.exceptions.NoHasPossibleReadFileConfigurationException;
-import com.thamirestissot.core.desafio.exceptions.DirectoryNotFoundException;
+import com.thamirestissot.core.desafio.exceptions.InfoCodeNotRegisteredMessageException;
+import com.thamirestissot.core.desafio.exceptions.NoHasPossibleReadFileConfigurationMessageException;
+import com.thamirestissot.core.desafio.exceptions.DirectoryNotFoundMessageException;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -25,19 +25,17 @@ public class HandlerFile {
             INPATH = HOMEPATH + properties.getProperty("inPath");
             OUTPATH = HOMEPATH + properties.getProperty("outPath");
         } catch (IOException e) {
-            throw new NoHasPossibleReadFileConfigurationException("src/main/resources/config.properties");
+            throw new NoHasPossibleReadFileConfigurationMessageException("src/main/resources/config.properties");
         }
     }
 
     public List<String> readDirectory() throws IOException {
         if (checkExists(INPATH)) {
             List<String> fileNames = new ArrayList<String>();
-            Files.list(Paths.get(INPATH)).filter(Files::isRegularFile).forEach(path1 -> {
-                fileNames.add(String.valueOf(path1.getFileName()));
-            });
+            Files.list(Paths.get(INPATH)).filter(Files::isRegularFile).forEach(path1 -> fileNames.add(String.valueOf(path1.getFileName())));
             return fileNames;
         }
-        throw new DirectoryNotFoundException(INPATH);
+        throw new DirectoryNotFoundMessageException(INPATH);
     }
 
     public boolean checkExists(String path) {
@@ -59,7 +57,7 @@ public class HandlerFile {
         return lines;
     }
 
-    public Object processLine(String line) throws InfoCodeNotRegisteredException {
+    public Object processLine(String line) throws InfoCodeNotRegisteredMessageException {
         String separator = String.valueOf(line.charAt(3));
         String[] words = line.split(separator);
         int codeLine = Integer.parseInt(words[0]);
@@ -76,49 +74,44 @@ public class HandlerFile {
                 String[] attributeItem = item.split("-");
                 Item item1 = new Item(Integer.parseInt(attributeItem[0]), Double.parseDouble(attributeItem[2]));
                 saleItem.add(new SaleItem(item1, Integer.parseInt(attributeItem[1])));
-
             }
             return new Sale(Integer.parseInt(words[1]), saleItem, words[3]);
         }
-        throw new InfoCodeNotRegisteredException();
+        throw new InfoCodeNotRegisteredMessageException();
     }
 
     public void processFile(String nameFile) {
         try {
             List<Object> objects = new ArrayList<Object>();
-            readFile(INPATH + nameFile).stream().forEach(line -> {
-                objects.add(processLine(line));
-            });
-            createReportFile(makeReport(objects),nameFile.replace(".dat", "")+".done.dat");
-        } catch (InfoCodeNotRegisteredException e) {
+            readFile(INPATH + nameFile).stream().forEach(line -> objects.add(processLine(line)));
+            createReportFile(makeReport(objects), nameFile.replace(".dat", "") + ".done.dat");
+        } catch (InfoCodeNotRegisteredMessageException e) {
             System.out.println(e.getFriendlyMessage());
         }
     }
 
     private Report makeReport(List<Object> objects) {
-
         List<Salesman> salesmen = getList(objects, Salesman.class);
         List<Customer> customers = getList(objects, Customer.class);
         List<Sale> sales = getList(objects, Sale.class);
         int numberOfCustomers = customers.size();
         int numberOfSalesmen = salesmen.size();
-        int mostExpensiveSaleId=-1;
+        int mostExpensiveSaleId = -1;
         String worstSalesmanEver = "";
         if (!sales.isEmpty()) {
             Collections.sort(sales);
             mostExpensiveSaleId = sales.get(0).getId();
             for (Sale sale : sales) {
-                salesmen.stream().filter(salesman -> salesman.getName().equals(sale.getSalesmanName()))
-                        .forEach(salesman -> salesman.addSale());
+                salesmen.stream().filter(salesman -> salesman.getName().equals(sale.getSalesmanName())).forEach(salesman -> salesman.incrementTotalSale());
             }
             Collections.sort(salesmen);
             worstSalesmanEver = salesmen.get(0).getName();
         }
-        return new Report(numberOfCustomers,numberOfSalesmen,mostExpensiveSaleId,worstSalesmanEver);
+        return new Report(numberOfCustomers, numberOfSalesmen, mostExpensiveSaleId, worstSalesmanEver);
     }
 
-    private void createReportFile(Report report, String nameFile){
-        try (FileWriter fileWriter =new FileWriter(OUTPATH+nameFile,false)){
+    private void createReportFile(Report report, String nameFile) {
+        try (FileWriter fileWriter = new FileWriter(OUTPATH + nameFile, false)) {
             fileWriter.write(report.getMessageReport());
         } catch (IOException e) {
             e.printStackTrace();

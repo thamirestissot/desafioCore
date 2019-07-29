@@ -1,8 +1,8 @@
 package com.thamirestissot.core.desafio;
 
 public class Customer {
-    private final int code=2;
-    String cnpj,name,businessArea;
+    private final int code = 2;
+    String cnpj, name, businessArea;
 
     public Customer(String cnpj, String name, String businessArea) {
         this.cnpj = cnpj;

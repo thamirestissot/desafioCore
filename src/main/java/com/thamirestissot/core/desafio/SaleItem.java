@@ -1,7 +1,5 @@
 package com.thamirestissot.core.desafio;
 
-import java.util.List;
-
 public class SaleItem {
     private Item item;
     private int quantity;

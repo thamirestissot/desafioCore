@@ -1,9 +1,7 @@
 package com.thamirestissot.core.desafio;
 
-import java.util.Comparator;
-
 public class Salesman implements Comparable<Salesman> {
-    private final int code=1;
+    private final int code = 1;
     private String cpf, name;
     private double salary;
     private int totalSales;
@@ -30,7 +28,8 @@ public class Salesman implements Comparable<Salesman> {
     public int getTotalSales() {
         return totalSales;
     }
-    public void addSale() {
+
+    public void incrementTotalSale() {
         this.totalSales++;
     }
 
