@@ -32,7 +32,11 @@ public class HandlerFile {
     public List<String> readDirectory() throws IOException {
         if (checkExists(INPATH)) {
             List<String> fileNames = new ArrayList<String>();
-            Files.list(Paths.get(INPATH)).filter(Files::isRegularFile).forEach(path1 -> fileNames.add(String.valueOf(path1.getFileName())));
+            Files.list(Paths.get(INPATH)).filter(Files::isRegularFile).forEach(path1 -> {
+                if (String.valueOf(path1.getFileName()).contains(".dat")) {
+                        fileNames.add(String.valueOf(path1.getFileName()));
+                }
+            });
             return fileNames;
         }
         throw new DirectoryNotFoundMessageException(INPATH);
@@ -114,7 +118,7 @@ public class HandlerFile {
         try (FileWriter fileWriter = new FileWriter(OUTPATH + nameFile, false)) {
             fileWriter.write(report.getMessageReport());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DirectoryNotFoundMessageException(OUTPATH);
         }
     }
 

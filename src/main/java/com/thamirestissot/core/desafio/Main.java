@@ -14,15 +14,15 @@ public class Main {
             HandlerFile handlerFile = new HandlerFile();
             List<String> fileNames = handlerFile.readDirectory();
             fileNames.stream().forEach(s -> handlerFile.processFile(s));
+            Watcher watcher = new Watcher();
+            try {
+                watcher.watch();
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
         } catch (DirectoryNotFoundMessageException | NoHasPossibleReadFileConfigurationMessageException e) {
             System.out.println(e.getFriendlyMessage());
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Watcher watcher = new Watcher();
-        try {
-            watcher.watch();
-        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
