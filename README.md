@@ -1,6 +1,6 @@
 # Report Generation System
 
-This is a system that receives a file through REST and generates a JSON report from the information contained in the file..
+This is a system that receives a file through REST and generates a JSON report from the information contained in the file.
 
 ---
 ## Requeriments
