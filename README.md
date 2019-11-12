@@ -29,4 +29,4 @@ You can use the tab of your choice, here I am using "/".
 
 - Sales data has the format id 003. Inside the sales row, there is the list of items, which is wrapped by square brackets []. The line will have the following format:
 
-``003çSale IDç[Item ID-Item Quantity-Item Price]çSalesman name``
+``003/Sale ID/[Item ID-Item Quantity-Item Price]/Salesman name``
