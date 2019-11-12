@@ -84,6 +84,15 @@ public class HandlerFile {
         throw new InfoCodeNotRegisteredMessageException();
     }
 
+    public Report processContent(String FileContent) {
+        String fileLines[] = FileContent.split( "\n");
+
+        List<Object> data = new ArrayList<Object>();
+        Arrays.stream(fileLines).forEach(line -> data.add(processLine(line)));
+
+        return new Report(data);
+    }
+
     public void processFile(String nameFile) {
         try {
             List<Object> objects = new ArrayList<Object>();
@@ -101,7 +110,7 @@ public class HandlerFile {
         int numberOfCustomers = customers.size();
         int numberOfSalesmen = salesmen.size();
         int mostExpensiveSaleId = -1;
-        String worstSalesmanEver = "";
+        Salesman worstSalesmanEver = null;
         if (!sales.isEmpty()) {
             Collections.sort(sales);
             mostExpensiveSaleId = sales.get(0).getId();
@@ -109,7 +118,7 @@ public class HandlerFile {
                 salesmen.stream().filter(salesman -> salesman.getName().equals(sale.getSalesmanName())).forEach(salesman -> salesman.incrementTotalSale());
             }
             Collections.sort(salesmen);
-            worstSalesmanEver = salesmen.get(0).getName();
+            worstSalesmanEver = salesmen.get(0);
         }
         return new Report(numberOfCustomers, numberOfSalesmen, mostExpensiveSaleId, worstSalesmanEver);
     }
