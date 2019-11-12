@@ -1,9 +1,9 @@
 package com.thamirestissot.core.desafio.controller;
 
 import com.google.gson.Gson;
-import com.thamirestissot.core.desafio.Report;
-import com.thamirestissot.core.desafio.manipulateFiles.HandlerFile;
-import com.thamirestissot.core.desafio.manipulateFiles.LogGenerator;
+import com.thamirestissot.core.desafio.model.Report;
+import com.thamirestissot.core.desafio.dataManipulation.HandlerData;
+import com.thamirestissot.core.desafio.dataManipulation.LogGenerator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,7 @@ public class FileUploadController {
     @PostMapping("/upload")
     public ResponseEntity<String> uploadData(@RequestParam("file") MultipartFile file) {
         if (file == null) {
-            throw new RuntimeException("You must select the a file for uploading");
+            throw new RuntimeException("You must select the a file for uploading.");
         }
         LogGenerator.FileUpload(file);
         String content = "";
@@ -28,10 +28,10 @@ public class FileUploadController {
             e.printStackTrace();
         }
 
-        HandlerFile handlerFile = new HandlerFile();
+        HandlerData handlerData = new HandlerData();
         Gson gson = new Gson();
 
-        Report report = handlerFile.processContent(content);
+        Report report = handlerData.processContent(content);
 
         return new ResponseEntity<String>(gson.toJson(report), HttpStatus.OK);
     }

@@ -1,4 +1,4 @@
-package com.thamirestissot.core.desafio;
+package com.thamirestissot.core.desafio.model;
 
 import java.util.List;
 

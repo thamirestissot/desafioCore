@@ -1,4 +1,4 @@
-package com.thamirestissot.core.desafio;
+package com.thamirestissot.core.desafio.model;
 
 public class Customer {
     private final int code = 2;

@@ -1,5 +1,6 @@
 package com.thamirestissot.core.desafio;
 
+import com.thamirestissot.core.desafio.model.Salesman;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

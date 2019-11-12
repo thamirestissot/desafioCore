@@ -1,4 +1,4 @@
-package com.thamirestissot.core.desafio;
+package com.thamirestissot.core.desafio.model;
 
 public enum DataType {
     SALESMAN(1), CUSTOMER(2), SALE(3);

@@ -1,4 +1,4 @@
-package com.thamirestissot.core.desafio.manipulateFiles;
+package com.thamirestissot.core.desafio.dataManipulation;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -8,8 +8,8 @@ public class LogGenerator {
     private static final Logger logger = Logger.getLogger(LogGenerator.class.getName());
 
     public static void FileUpload(MultipartFile file) {
-        logger.info("File Uploaded - originalName: '" + file.getOriginalFilename() +"' - " +
-                "name: '" + file.getName() +"' - " +
+        logger.info("File Uploaded - originalName: '" + file.getOriginalFilename() + "' - " +
+                "name: '" + file.getName() + "' - " +
                 "size: " + file.getSize() + "bytes");
     }
 }

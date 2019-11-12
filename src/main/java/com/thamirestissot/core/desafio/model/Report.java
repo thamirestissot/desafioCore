@@ -1,4 +1,4 @@
-package com.thamirestissot.core.desafio;
+package com.thamirestissot.core.desafio.model;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,21 +34,5 @@ public class Report {
 
     private <E> List<E> getList(List<Object> list, Class myclass) {
         return list.stream().filter(o -> o.getClass() == myclass).map(o -> (E) o).collect(Collectors.toList());
-    }
-
-    public String getMessageReport() {
-        StringBuilder message = new StringBuilder();
-        message.append("Amount of clients in the input file = ");
-        message.append(this.numberOfCustomers);
-        message.append("\nAmount of salesman in the input file = ");
-        message.append(this.numberOfSalesmen);
-        message.append("\nID of the most expensive sale = ");
-        if (this.mostExpensiveSaleId == -1)
-            message.append("no sale made");
-        else
-            message.append(this.mostExpensiveSaleId);
-        message.append("\nWorst salesman ever = ");
-        message.append(this.worstSalesmanEver);
-        return message.toString();
     }
 }
