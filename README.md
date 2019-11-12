@@ -10,8 +10,12 @@ This is a system that receives a file through REST and generates a JSON report f
 
 ---
 
-## About the operation
+## How to use
 A REST request is made, sent a file with the standardized data. Then the report will be returned in JSON format.
+
+You can use this endpoint:
+
+``http://localhost:8080/upload``
 
 You can use the tab of your choice, here I am using "/".
 
